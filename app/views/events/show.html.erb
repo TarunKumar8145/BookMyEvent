@@ -1,0 +1,56 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4">
+    
+    <!-- Event Image -->
+    <% if @event.image.attached? %>
+      <div class="text-center mb-4">
+        <%= image_tag @event.image, class: "img-fluid rounded-3 shadow", style: "max-height: 400px; object-fit: cover;" %>
+      </div>
+    <% end %>
+
+    <!-- Event Name -->
+    <h2 class="text-center text-primary fw-bold mb-3"><%= @event.event_name %></h2>
+  
+    <!-- Event Details -->
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="p-4 bg-light rounded-3 shadow-sm">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-calendar-alt text-primary"></i> 
+              <strong>Date:</strong> <%= @event.date.strftime('%B %d, %Y - %I:%M %p') %>
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-map-marker-alt text-danger"></i> 
+              <strong>Location:</strong> <%= @event.location.capitalize %>
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-building text-success"></i> 
+              <strong>Venue:</strong> <%= @event.venue.capitalize %>
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-chair text-warning"></i> 
+              <strong>Total Seats:</strong> <%= @event.total_seats %>
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-tag text-info"></i> 
+              <strong>Price:</strong> ₹<%= @event.price %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-center mt-4 flex-wrap gap-3">
+      <%= link_to "Book Now", new_booking_path(event_id: @event.id), class: "btn btn-success fw-bold px-4 py-2 rounded-3 shadow-lg" %>
+
+      <% if current_user&.admin? %>
+        <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-warning fw-bold px-3 py-2 rounded-3 shadow-sm" %>
+        <%= button_to "Delete Event", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger fw-bold px-3 py-2 rounded-3 shadow-sm" %>
+      <% end %>
+
+      <%= link_to "Back to Events", events_path, class: "btn btn-secondary fw-bold px-3 py-2 rounded-3 shadow-sm" %>
+    </div>
+  </div>
+</div>

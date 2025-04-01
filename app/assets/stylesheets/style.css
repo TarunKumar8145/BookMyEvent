@@ -1,0 +1,120 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #222;
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffcc00 !important;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffcc00;
+}
+
+/* Hero Section */
+.hero {
+    background: url('https://source.unsplash.com/1600x900/?concert,event') center/cover no-repeat;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 10px auto;
+}
+
+.hero .btn {
+    font-size: 1.2rem;
+    padding: 12px 25px;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    transition: background 0.3s;
+}
+
+.hero .btn:hover {
+    background-color: #ffdb4d;
+    color: black;
+}
+
+/* Event Cards */
+.event-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.event-card img {
+    border-radius: 10px 10px 0 0;
+}
+
+.event-card .card-body {
+    text-align: center;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-card .btn {
+    background-color: #ffcc00;
+    border: none;
+    transition: background 0.3s;
+}
+
+.event-card .btn:hover {
+    background-color: #ffdb4d;
+}
+
+/* Contact Section */
+#contact {
+    background-color: #222;
+    color: white;
+    padding: 50px 0;
+}
+
+#contact h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#contact p {
+    font-size: 1.2rem;
+}
+
+/* Footer */
+footer {
+    background-color: #111;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+}

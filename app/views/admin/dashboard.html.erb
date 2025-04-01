@@ -1,0 +1,98 @@
+<div class="container mt-5  ">
+  <h1 class="text-center mb-4">                                           
+      Admin Dashboard
+  </h1>
+
+  <!-- Users Section -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white fw-bold">Users</div>
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.email %></td>
+              <td><%= user.admin? ? '✅ Yes' : '❌ No' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bookings Section -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-success text-white fw-bold">Bookings</div>
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Event</th>
+            <th>Tickets</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bookings.each do |booking| %>
+            <tr>
+              <td><%= booking.id %></td>
+              <td><%= booking.user.email %></td>
+              <td><%= booking.event.event_name %></td>
+              <td><%= booking.tickets %></td>
+              <td>
+                <% case booking.status %>
+                  <% when 'confirmed' %>
+                    <span class="badge bg-success">Confirmed</span>
+                  <% when 'pending' %>
+                    <span class="badge bg-warning text-dark">Pending</span>
+                  <% when 'cancelled' %>
+                    <span class="badge bg-danger">Cancelled</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Revenue Per Event Section -->
+ <div class="card shadow mb-4">
+  <div class="card-header bg-dark text-white fw-bold text-center">Total Revenue Per Event</div>
+  <div class="card-body">
+    <% if @events.present? %>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>Event Name</th>
+              <th>Total Revenue (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+              <% total_revenue = event.bookings.confirmed.sum { |booking| booking.tickets * event.price } %>
+              <tr>
+                <td class="fw-bold text-primary"><%= event.event_name %></td>
+                <td class="fw-bold text-success">₹ <%= total_revenue %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center text-danger fw-bold">No events available</div>
+    <% end %>
+  </div>
+ </div>
+</div>

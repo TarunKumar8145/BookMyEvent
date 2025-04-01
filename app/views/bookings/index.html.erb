@@ -1,0 +1,65 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:alert] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<div class="container mt-5">
+  <h2 class="text-center text-primary fw-bold">My Booking History</h2>
+
+
+  <% if @bookings.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center mt-4">
+        <thead class="table-dark">
+          <tr>
+            <th>Event</th>
+            <th>Tickets</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Transaction ID</th>
+            <th>Booked On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bookings.each do |booking| %>
+            <tr>
+              <td class="fw-bold"><%= booking.event.event_name %></td>
+              <td><%= booking.tickets %></td>
+              <td class="text-success fw-bold">₹<%= booking.total_price %></td>
+              <td class="<%= booking.status == 'confirmed' ? 'text-success fw-bold' : 'text-warning fw-bold' %>">
+                <%= booking.status.capitalize %>
+              </td>
+              <td><%= booking.transaction_id || "N/A" %></td>
+              <td><%= booking.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+              <td>
+                <% if booking.status == "confirmed" %>
+                  <%= button_to "Cancel", cancel_booking_path(booking), method: :patch, 
+                        data: { confirm: "Are you sure you want to cancel?" }, 
+                        class: "btn btn-danger btn-sm fw-bold" %>
+                <% elsif booking.status == "cancelled" %>
+                  <span class="text-danger fw-bold">Canceled</span>
+                <% elsif booking.status == "pending" %>
+                  <span class="text-warning fw-bold">Not Booked</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info text-center mt-4" role="alert">
+      <p>You have not made any bookings yet.</p>
+    </div>
+  <% end %>
+</div>

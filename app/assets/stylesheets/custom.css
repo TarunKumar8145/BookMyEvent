@@ -1,0 +1,37 @@
+/* Gallery Page Styling */
+/* Gradient Background */
+body {
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color: white;
+  }
+  
+  /* Custom Card Styling */
+  .card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Custom Gradient Button */
+  .btn-gradient {
+    background: linear-gradient(45deg, #ff8c00, #ff0080);
+    border: none;
+    transition: 0.3s;
+  }
+  
+  .btn-gradient:hover {
+    background: linear-gradient(45deg, #ff6a00, #e60073);
+    transform: scale(1.1);
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: url('<%= asset_path("sign_up.jpeg") %>') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+  }
+  

@@ -1,0 +1,14 @@
+<% content_for :title, "Editing Event" %>
+
+<div class="container mt-5">
+  <h2 class="text-center text-primary fw-bold">Edit Event</h2>
+
+  <div class="card shadow-lg border-0 rounded-4 p-4 mt-4">
+    <%= render "form", event: @event %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to "Show this Event", @event, class: "btn btn-info text-white fw-bold px-3 mx-2" %>
+    <%= link_to "Back to Events", events_path, class: "btn btn-secondary fw-bold px-3" %>
+  </div>
+</div>

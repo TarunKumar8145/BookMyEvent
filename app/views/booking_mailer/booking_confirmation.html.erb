@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container { font-family: Arial, sans-serif; padding: 20px; }
+    .header { font-size: 24px; font-weight: bold; color: #333; }
+    .content { font-size: 18px; margin-top: 10px; }
+    .footer { margin-top: 20px; font-size: 14px; color: gray; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Booking Confirmation</div>
+    <div class="content">
+      <p>Dear <%= @user.email %>,</p>
+      <p>Your booking for the event <strong><%= @event.event_name %></strong> on <%= @event.date.strftime('%d %B %Y') %> is confirmed!</p>
+      <p>Number of Tickets: <strong><%= @booking.tickets %></strong></p>
+      <p>Total Price: <strong>₹<%= @booking.total_price %></strong></p>
+      <p>We look forward to seeing you there!</p>
+    </div>
+    <div class="footer">Thank you for booking with us!</div>
+  </div>
+</body>
+</html>

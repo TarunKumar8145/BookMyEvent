@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "BookMyEvent" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Bootstrap & Custom CSS -->
+    <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all', "data-turbo-track": "reload" %>
+    
+    <%= javascript_importmap_tags %>
+
+    <style>
+      /* General Body Styling */
+/* General Styling */
+/* Ensure full height and correct positioning */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1; /* Pushes the footer to the bottom */
+}
+
+footer {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+/* Navbar Title with Unique Styling */
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    background: linear-gradient(45deg, #ff8c00, #ff0080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Navbar Icons with More Spacing */
+.navbar-nav .nav-link i {
+    margin-right: 10px; /* Increased spacing */
+    font-size: 1.2rem; /* Slightly larger icons */
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Icon Glow Effect on Hover */
+.navbar-nav .nav-item .nav-link:hover i {
+    transform: scale(1.2);
+    color: #ffcc00;
+    text-shadow: 0px 0px 8px rgba(255, 204, 0, 0.8);
+}
+
+/* Navbar Link Styling */
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adds extra spacing between icon and text */
+}
+
+/* Hover effect */
+.navbar-nav .nav-item .nav-link:hover {
+    color: #ffcc00 !important; /* Gold color on hover */
+    transform: translateY(-2px);
+}
+
+/* Active Link */
+.navbar-nav .nav-item .nav-link.active {
+    color: #ffcc00 !important;
+    font-weight: bold;
+}
+
+/* Animated Search Bar */
+.search-bar {
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.search-bar:focus {
+    border-color: #ffcc00;
+    box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.5);
+    outline: none;
+}
+
+/* Animated Buttons */
+.navbar .btn {
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar .btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 5px 10px rgba(255, 204, 0, 0.4);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 10px;
+    }
+}
+
+footer {
+  background: #222;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.about, .contact {
+  max-width: 400px;
+}
+
+h3 {
+  color: #f9a825;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  font-size: 14px;
+}
+.flash-message {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 1000;
+      min-width: 250px;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+</style>
+  </head>
+
+  <body>
+   <!-- Navbar -->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <!-- Brand Name -->
+    <a class="navbar-brand" href="#">📅 BookMyEvent</a>
+    
+    <!-- Toggle Button for Mobile View -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        
+        <li class="nav-item">
+          <a class="nav-link active" href="<%= root_path %>">
+            <i class="bi bi-house-door"></i> Home
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="<%= gallery_index_path %>">
+            <i class="bi bi-calendar-event"></i> Events
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="<%= bookings_path %>">
+            <i class="bi bi-ticket-perforated"></i> MyBookings
+          </a>
+        </li>
+
+        <% if user_signed_in? && current_user.admin? %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= events_path %>">
+              <i class="bi bi-gear"></i> Manage
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<%= admin_dashboard_path %>">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+        <% end %>
+
+        <!-- Search Form -->
+        <form action="<%= gallery_index_path %>" method="get" class="d-flex ms-3">
+          <input type="text" name="query" placeholder="Search events..." value="<%= params[:query] %>" class="form-control search-bar" required>
+          <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-search"></i> Search</button>
+        </form>
+
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to edit_user_registration_path, class: "nav-link" do %>
+              <i class="bi bi-pencil-square"></i> Edit
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link btn btn-danger text-white px-3" do %>
+              <i class="bi bi-box-arrow-right"></i> Logout
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: "nav-link btn btn-primary text-white px-3" do %>
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to new_user_registration_path, class: "nav-link btn btn-success text-white px-3" do %>
+              <i class="bi bi-person-plus"></i> Sign Up
+            <% end %>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div id="flash_messages" class="container mt-3">
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> flash-message">
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+
+
+    <!-- Main Content -->
+    <div class="content">
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+   <footer>
+  <div class="footer-content">
+    <div class="about">
+      <h3>About Us</h3>
+      <p>BookMyEvent is your one-stop platform to discover and book amazing concerts, workshops, and events. 
+      We strive to bring you the best event booking experience with seamless ticketing and exciting events across multiple categories.</p>
+    </div>
+    
+    <div class="contact">
+      <h3>Contact Us</h3>
+      <p><strong>Email:</strong> support@bookmyevent.com</p>
+      <p><strong>Phone:</strong> +917337714590</p>
+      <p><strong>Address:</strong> 123 Event Street, Bengaluru, India</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 BookMyEvent. All rights reserved.</p>
+  </div>
+</footer>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

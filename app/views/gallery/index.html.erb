@@ -1,0 +1,161 @@
+<div class="hero-section text-center text-white d-flex flex-column justify-content-center align-items-center">
+  <h1 class="display-4 fw-bold">Discover & Book Amazing Events</h1>
+  <p class="lead">Find concerts, comedy shows, workshops, and more happening near you.</p>
+  <a href="#events" class="btn btn-lg btn-gradient fw-bold">Explore Now</a>
+</div>
+
+<style>
+/* Hero Section Styling */
+.hero-section {
+  width: 100%;
+  height: 300px; /* Adjust height as needed */
+  background: linear-gradient(135deg, rgba(29, 38, 113, 0.9), rgba(195, 55, 100, 0.9)), 
+              url('https://source.unsplash.com/1600x900/?concert,party') center/cover no-repeat;
+  padding: 50px 20px;
+}
+</style>
+
+<div class="container mt-5">
+  <h1 class="text-center text-primary fw-bold">Trending Events</h1>                                               
+
+  <% if @events.any? %>
+    <div class="row g-4 mt-4">
+      <% @events.each do |event| %>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
+            
+            <!-- Event Image -->
+            <% if event.image.attached? %>
+              <%= image_tag event.image, class: "card-img-top img-fluid", style: "height: 220px; object-fit: cover;" %>
+            <% else %>
+              <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top img-fluid">
+            <% end %>
+
+            <!-- Event Details -->
+            <div class="card-body text-center bg-light p-3">
+              <h6 class="card-title text-dark fw-bold"><%= event.event_name %></h6>
+              <h6 style="font-size: 14px;"><i class="bi bi-calendar-event"></i> <%= event.date.strftime('%d %b %Y') %></h6>
+              <h6 style="font-size: 14px;"><i class="bi bi-geo-alt-fill"></i> <%= event.location %></h6>
+              <p><strong>Seats: <%= event.available_seats %></strong></p>
+
+              <!-- Booking Button -->
+              <% if event.available_seats > 0 %>
+                <%= link_to "View Details", event_path(event), class: "btn btn-info fw-bold px-3 py-1 rounded-3 shadow-sm" %>
+              <% else %>
+                <button class="btn btn-secondary btn-sm px-3 fw-bold text-white rounded-3 shadow-sm" disabled>Sold Out</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center mt-4">
+      <h3 class="text-danger fw-bold">Your searched event is not available</h3>
+      <p class="text-light">Try searching for something else.</p>
+    </div>
+  <% end %>
+
+  <!-- Pagination -->
+  <div class="pagination-wrapper mt-4 d-flex justify-content-center">
+    <%= will_paginate @events, class: "pagination", previous_label: "« Prev", next_label: "Next »" %>
+  </div>
+</div>
+
+
+<style>
+/* Gallery Page Styling */
+/* Gradient Background */
+
+/* Add margin to body to prevent navbar overlap */
+body {
+  background: linear-gradient(135deg, #1d2671, #c33764);
+  color: white;
+  padding-top: 80px; /* Adjust according to navbar height */
+}
+
+/* If needed, also adjust container */
+.container {
+  margin-top: 20px;
+}
+
+/* Custom Card Styling */
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Gradient Button */
+.btn-gradient {
+  background: linear-gradient(45deg, #ff8c00, #ff0080);
+  border: none;
+  transition: 0.3s;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(45deg, #ff6a00, #e60073);
+  transform: scale(1.1);
+}
+
+/* Sold Out Button */
+.btn-secondary {
+  background: #888;
+  cursor: not-allowed;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+.card {
+  margin-bottom: 40px; /* Adjust spacing as needed */
+}
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+  padding: 0;
+}
+
+.pagination a, .pagination span {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  color: white;
+  background: blue;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pagination a:hover {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  transform: scale(1.1);
+}
+
+.pagination .current {
+  background: #007bff;
+  color: white;
+  pointer-events: none;
+}
+
+.pagination .disabled {
+  background: #6c757d;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
+</style>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMyEvent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Hero Section Styling */
+        /* Remove extra space below navbar */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Maintain a small gap between navbar and hero */
+.hero {
+    background: url('https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=80') center/cover no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    padding: 0 15px;
+    margin-top: 10px; /* Keeps a small gap */
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Position the alert message to the right */
+.alert {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: auto;
+    z-index: 1050; /* Ensure it stays above other elements */
+}
+
+/* Ensure navbar and hero remain visually separate */
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px; /* Restrict width */
+    margin: auto; /* Center horizontally */
+}
+
+.hero .btn-primary {
+    background-color: #ff9800;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.hero .btn-primary:hover {
+    background-color: #e68900;
+}
+
+    </style>
+</head>
+<body>
+    
+    <!-- Hero Section -->
+    <header class="hero d-flex justify-content-center align-items-center" >
+        <div class="hero-overlay"></div>
+        <div class="hero-content text-center">
+            <h1 class="display-3 fw-bold">Discover & Book Amazing Events</h1>
+            <p class="lead">Concerts, Workshops, Comedy Shows & More!</p>
+            <a href="gallery/index" class="btn btn-primary">Explore Events</a>
+        </div>
+    </header>
+
+   <!-- Upcoming Events Section -->
+<!-- Upcoming Events Section -->
+<!-- Upcoming Events Section -->
+<section id="events" class="py-5 text-dark" style="background: linear-gradient(#1d2671, #c33764);
+">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Upcoming Events</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card event-card shadow-lg border-0">
+                    <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=600" class="card-img-top" alt="Music Concert">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">Music Concert</h5>
+                        <p class="card-text">Join us for an unforgettable night of music.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card event-card shadow-lg border-0">
+                    <img src="https://media.gettyimages.com/id/1466652117/photo/smiling-young-male-comedian-performing-stand-up-on-stage-in-theater.jpg?s=612x612&w=0&k=20&c=31hxTIUB06sQw8MIucz6VuHLPl3XRGw3Q3gxvGdqDzU=" class="card-img-top" alt="Comedy Show">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">Comedy Show</h5>
+                        <p class="card-text">Get ready for a night full of laughter.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card event-card shadow-lg border-0">
+                    <img src="https://media.gettyimages.com/id/108127901/photo/contemporary-female-dancers-on-stage.jpg?s=612x612&w=0&k=20&c=VC84ca7kwqQ_Tw9zyxfUxzdNuCdEo3Vx5R7Y_Y79MV4=" class="card-img-top" alt="Dance Show">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">Dance Show</h5>
+                        <p class="card-text">Unleash your creativity with us.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Card Hover Effect */
+    .event-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .event-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    /* Image Styling */
+    .card img {
+        height: 250px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+    }
+    /* Adjust Text Color for Better Readability */
+    .card-body h5 {
+        color: #2c3e50;
+    }
+    .card-body p {
+        color: #555;
+    }
+</style>
+
+
+    
+ 
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

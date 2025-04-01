@@ -1,0 +1,34 @@
+
+<div class="container mt-5 pt-5"> <!-- Added pt-5 for extra spacing -->
+<% if @event %>
+  <h3 class="text-center text-primary fw-bold">Booking tickets for: <%= @event.event_name %></h3>
+<% end %>
+  <div class="card shadow-lg p-4">
+    <%= form_with model: @booking, url: event_bookings_path(@event), local: true, class: "needs-validation", novalidate: true do |form| %>
+      <div class="mb-3">
+        <%= form.label :tickets, "Number of Tickets", class: "form-label" %>
+        <%= form.number_field :tickets, min: 1, max: @event.total_seats, id: "ticket_count", class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <p class="fw-bold">Price per Ticket: <span class="text-primary">₹<%= @event.price %></span></p>
+      </div>
+
+      <div class="mb-3">
+        <p class="fw-bold">Total Price: <span class="text-success fw-bold">₹<span id="total_price"><%= @event.price %></span></span></p>
+      </div>
+
+      <%= form.submit "Continue to Payment", class: "btn btn-success w-100" %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.getElementById("ticket_count").addEventListener("input", function() {
+    let pricePerTicket = <%= @event.price %>;
+    let totalTickets = this.value;
+    let totalPrice = pricePerTicket * totalTickets;
+    document.getElementById("total_price").innerText = totalPrice ? totalPrice : pricePerTicket;
+  });
+</script>
+

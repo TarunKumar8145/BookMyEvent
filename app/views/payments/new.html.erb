@@ -1,0 +1,74 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+    <%= flash[:alert] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if @booking.present? %>
+  <div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row justify-content-center w-100">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-header bg-primary text-white text-center">
+            <h4 class="fw-bold mb-0">Payment for Booking</h4>
+          </div>
+          <div class="card-body p-4">
+            <%= form_with url: process_payment_path(@booking), method: :post, local: true, class: "needs-validation", novalidate: true do |form| %>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <%= form.label :first_name, "First Name", class: "form-label fw-bold" %>
+                  <%= form.text_field :first_name, class: "form-control", required: true %>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <%= form.label :last_name, "Last Name", class: "form-label fw-bold" %>
+                  <%= form.text_field :last_name, class: "form-control", required: true %>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :card_number, "Card Number", class: "form-label fw-bold" %>
+                <%= form.text_field :card_number, class: "form-control", placeholder: "4111 1111 1111 1111", required: true %>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <%= form.label :expiry_month, "Expiry Month (MM)", class: "form-label fw-bold" %>
+                  <%= form.number_field :expiry_month, min: 1, max: 12, class: "form-control", required: true %>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <%= form.label :expiry_year, "Expiry Year (YYYY)", class: "form-label fw-bold" %>
+                  <%= form.number_field :expiry_year, min: 2024, max: 2035, class: "form-control", required: true %>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <%= form.label :cvv, "CVV", class: "form-label fw-bold" %>
+                  <%= form.password_field :cvv, class: "form-control", required: true %>
+                </div>
+              </div>
+
+              <div class="mb-3 text-center">
+                <p class="fw-bold fs-5">Total Amount: <span class="text-success">₹<%= @booking.total_price %></span></p>
+              </div>
+
+              <%= form.submit "Confirm Payment", class: "btn btn-primary w-100 fw-bold" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="text-center mt-5">
+    <p class="text-danger fw-bold fs-4">Booking not found! Please try again.</p>
+  </div>
+<% end %>
